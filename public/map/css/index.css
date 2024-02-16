@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+#top-bar {
+    opacity: 0;
+    bottom: '0px';
+}
+
+/* */
+
+.right-menu {
+    width: 30px;
+    position: absolute;
+    right: 10px;
+    top: 220px;
+}
+
+.marker {
+    background-size: 18px 18px;
+}
+
+#question-mark {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.help-options {
+    padding: 10px;
+    text-align: center;
+}
+
+label.form-label {
+    margin-bottom: 5px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+.mb-3:last-child {
+    margin-bottom: 0;
+}
+
+/* ANIMATIONS */
+
+@keyframes show-alert {
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+.show-alert {
+    animation-name: show-alert;
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+}
+
+/* MEDIA QUERY */
+
+@media screen and (max-width: 767px) {
+    #btn-top {
+        top: 72px;
+        left: 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #btn-top {
+        top: 10px;
+    }
+
+    .mapboxgl-ctrl-top-right {
+        top: 66px;
+        width: 100%;
+    }
+
+    div.mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+        margin: 10px 10px 0 10px;
+    }
+}
+
+@media screen and (max-width: 560px) {
+
+    #btn,
+    #btn-mission {
+        bottom: 70px;
+    }
+
+    nav,
+    .modal-config {
+        bottom: 124px;
+        z-index: 99;
+    }
+}
