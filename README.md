@@ -1,18 +1,17 @@
 # First Steps
 
-1. cp .env.production-example .env
+1. cp .env.example .env
 2. set .env configurations (app url, app port, database, mail config, etc)
 
-# How to run 
+# Production run
 
 1. docker-compose up -d
 2. docker-compose exec app bash
-3. composer install + npm install
-4. composer install --optimize-autoloader --no-dev
+3. composer install --optimize-autoloader --no-dev
+4. npm install
 5. php artisan event:cache
 6. php artisan route:cache
 7. php artisan view:cache
-8. php artisan migrate
-9. php artisan db:seed
-10. npm run build
-11. exit
+8. php artisan migrate:fresh -seed
+9. npm run build
+10. exit
