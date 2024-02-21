@@ -43,7 +43,10 @@ jobs:
                 run: php artisan test
 
     job3:
+        name: Deploy
         needs: [job1, job2]
+        environment:
+            name: ${{ github.ref_name }} # based on branch name
         runs-on: ubuntu-latest
         steps:
             -   name: Get Code
@@ -53,3 +56,6 @@ jobs:
                 run: echo "::set-output name=branch_name::${GITHUB_REF#refs/heads/}"
             -   name: Print branch name
                 run: echo "The branch name is ${{ steps.extract_branch_name.outputs.branch_name }}"
+            -   name: Testing env
+                run: echo ${{ secrets.ENV_TESTING }}
+        
