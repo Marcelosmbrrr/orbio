@@ -1,14 +1,13 @@
 #!/bin/bash
 set -e
 
-echo "Development deployment started"
+echo "Production deployment started"
 
-# Enter maintenance mode or return true
-# if already is in maintenance mode
+# Enter maintenance mode
 (php artisan down) || true
 
 # Pull the latest version of the app
-git pull https://github.com/Marcelosmbrrr/orbio.git dev
+git pull https://github.com/Marcelosmbrrr/orbio.git main
 
 # Install all dependencies
 composer install --optimize-autoloader --no-dev
@@ -35,4 +34,10 @@ php artisan storage:link
 # Exit maintenance mode
 php artisan up
 
-echo "Development deployment finished"
+echo "Production deployment finished"
+
+
+
+
+
+
