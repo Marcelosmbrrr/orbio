@@ -45,27 +45,32 @@
 	<div id='map'></div>
 
 	<!-- MARKER MENU -->
-	<div id="right-menu" class="mapboxgl-ctrl-group mapboxgl-ctrl right-menu show-marker">
-		<button class="mapbox-gl-draw_ctrl-draw-btn marker" id="marker">
-			<img class="text-center m-auto" src="https://cdn-icons-png.flaticon.com/512/447/447031.png" width="20px" height="20px">
+	<div id="right-menu" class="flex justify-center bg-white p-1 rounded-md right-menu">
+		<button id="marker">
+			<svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+				<path fill-rule="evenodd" d="M12 2a8 8 0 0 1 6.6 12.6l-.1.1-.6.7-5.1 6.2a1 1 0 0 1-1.6 0L6 15.3l-.3-.4-.2-.2v-.2A8 8 0 0 1 11.8 2Zm3 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" clip-rule="evenodd"/>
+			  </svg>
 		</button>
 	</div>
 
+	<div id="alert" class="opacity-0 z-50 fixed flex items-center w-fit p-4 space-x-4 text-gray-500 bg-red-500 divide-x rtl:divide-x-reverse divide-gray-200 rounded-md shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800" style="bottom: 5px;"  role="alert">
+		<div id="alert-message" class="text-base leading-5 text-white bg-red-500 rounded-lg opacity-100 font-regular"><!-- message --></div>
+	</div>
+
 	<!-- BOTTOM BAR -->
-	<div id="bottom-bar" class="w-full h-18 flex justify-center fixed bottom-2 z-10">
-		<div class="w-auto h-full p-5 bg-white rounded-lg">
+	<div id="bottom-bar" class="w-full flex justify-center h-18 fixed bottom-0 z-10">
+		<div class="w-80 text-center bg-white rounded-t-lg h-full p-5">
 			<span id="calculated-area" class="text-stone-800 font-medium">0 ha</span> -
 			<span id="calculated-distance" class="text-stone-800 font-medium">0 Km</span> -
 			<span id="calculated-time" class="text-stone-800 font-medium">0 s</span>
 		</div>
 	</div>
 
-	<x-map-menu />
-	<x-flight-plan-configuration />
-	<x-flight-plan-confirmation />
-	<x-map-instructions />
+	<x-sidebar.sidebar />
+	<x-sidebar.help-bar />
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
 	<script src="{{ asset('map/js/libs/cropper/cropper.js') }}"></script>
 	<script src="{{ asset('map/js/index.js') }}"></script>
 </body>

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\sidebar;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MapMenu extends Component
+class sidebar extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class MapMenu extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.map-menu');
+        return view('components.sidebar.sidebar');
     }
 }

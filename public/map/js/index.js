@@ -33,11 +33,11 @@ var map = new mapboxgl.Map({
 
 
 // Adicionando um marcador no ponto KML importados
-marcador = new mapboxgl.Marker({ color: 'black' })
+var marcador = new mapboxgl.Marker({ color: 'black' })
     .setLngLat(home)
     .addTo(map);
 
-//marcador._proto_.display = true;
+marcador.__proto__.display = true;
 
 // ========= FERRAMENTA DE BUSCA POR LOCALIDADES =========== //
 
@@ -74,6 +74,11 @@ map.on('draw.update', updateArea);
 // Pode-se selecionar a posição inicial da rota ao clicar em um dos vértices da área
 map.on('click', selectInitialPosition);
 map.on('touchstart', selectInitialPosition);
+
+// ==== ALERTA ==== //
+
+var alert = document.getElementById("alert");
+var alertMessage = document.getElementById("alert-message");
 
 // ============================================================================================= PART 2: DRAWING ROUTE  ============================================================================================= //
 
@@ -162,11 +167,9 @@ function selectInitialPosition() {
 
         // Criando um polígono reduzido para gerar a rota mais distante das extremidades
         // A variável selectedPosition é atualizada para um dos vértices do polígono reduzido
-        //selectedPosition = drawReducedPolygon02(draw.getAll(), selectedPosition);
         selectedPosition = drawReducedPolygon02(draw.getAll().features[0].geometry.coordinates[0],
             selectedPosition);
 
-        //createParallelLines(draw.getAll(), selectedPosition);
         createParallelLines(draw.getAll().features[0].geometry.coordinates[0],
             selectedPosition);
     }
@@ -174,6 +177,8 @@ function selectInitialPosition() {
 
 // == REDUZINDO POLÍGONO PARA QUE A ROTA ESTEJA DENTRO DA ÁREA == //
 function drawReducedPolygon02(areaPolygon, selectedPosition) {
+
+    console.log(areaPolygon);
 
     // Acessando o parâmetro de "distância entre linhas" definido pelo usuário
     inputDistance = document.getElementById("distance").value;
@@ -254,11 +259,8 @@ function drawReducedPolygon02(areaPolygon, selectedPosition) {
 
     // Atualizando a posição (vértice) selecionada pelo usuário
     // Esta posição será um dos vértices do polígono reduzido
-    //for(j = 0; j < turf.coordAll(areaPolygon).length; j++){
     for (j = 0; j < areaPolygon.length; j++) {
 
-        //if(turf.coordAll(areaPolygon)[j][0] == turf.coordAll(selectedPosition)[0][0] && 
-        //	turf.coordAll(areaPolygon)[j][1] == turf.coordAll(selectedPosition)[0][1] && !flag){
         if (areaPolygon[j][0] == turf.coordAll(selectedPosition)[0][0] &&
             areaPolygon[j][1] == turf.coordAll(selectedPosition)[0][1] && !flag) {
 
@@ -651,8 +653,8 @@ function defineRoutes02(selectedPosition) {
     //drawMultiLineStringArray('phase03', finalPhase03Path, '#000');
 
     cont = 0;
-    console.log("pontos externos: " + intersectionPoints.length);
-    console.log("pontos internos: " + internalIntersections.length);
+    //console.log("pontos externos: " + intersectionPoints.length);
+    //console.log("pontos internos: " + internalIntersections.length);
 
     difference = intersectionPoints.length - internalIntersections.length;
 
@@ -874,7 +876,9 @@ function routeTotalDistance(ultimatePath) {
             turf.point([ultimatePath[j + 1][0], ultimatePath[j + 1][1]]));
 
         // Verificando o tempo de voo baseado na distância parcial atual percorrida
+        // para criar o breakpoints
         calculateFlightTime(partialDistance);
+        console.log("Time: " + time);
 
         // Acessando o limite máximo de tempo definido pelo usuário
         maxFlightTime = Number.parseInt(document.getElementById('max-flight-time').value) * 60;
@@ -882,11 +886,13 @@ function routeTotalDistance(ultimatePath) {
         // Se 'time' computado pela função calculateFlightTime exceder o limite máximo,
         // cria-se um breakpoint para retornar para a base		
         if (time >= maxFlightTime) {
+            console.log("Quebra: " + j);
             partialDistance = 0;
             breakpoints.push([ultimatePath[j][0], ultimatePath[j][1]]);
         }
     }
 
+    // Exibindo a distância total percorrida no box de informações
     var distanceBox = document.getElementById("calculated-distance");
     distanceBox.innerHTML = totalDistance.toFixed(2) + " Km";
 
@@ -934,70 +940,79 @@ function createIntermediateWaypoints(temp) {
     return allIntermediateWp;
 }
 
-// ============================================================================================= PART 3: MENU OPTIONS  ============================================================================================= //
+// ============================================================================================= PART 3: MENU  ============================================================================================= //
 
-// BTN NEW ROUTE
-const btnClean = document.getElementById("btn-new");
-btnClean.addEventListener("click", cleanMap);
+// NEW 
+const btnNew = document.getElementById("btn-new");
+btnNew.addEventListener("click", clearMap);
 
-function cleanMap() {
-    cleanLayers();
-    cleanFields();
-    cleanPolygon();
-}
-
-// SAVE MENU
+// SAVE
 const btnSaveMenu = document.getElementById("btn-save");
 btnSaveMenu.addEventListener("click", savePath);
 
-// IMPORT TXT
+// FILE IMPORT ==============================================
+const btnImportBar = document.getElementById("btn-import");
+btnImportBar.addEventListener("click", () => {
+    document.getElementById("saving-bar").classList.add("hidden");
+    document.getElementById("config-bar").classList.add("hidden");
+    document.getElementById("help-modal").classList.add("hidden");
+    document.getElementById("import-file-bar").classList.toggle("hidden");
+});
+
+// IMPORT TXT FILE
 const btnImportTxt = document.getElementById("file-import-txt");
 btnImportTxt.addEventListener('change', importTxtFile, false);
 
-// IMPORT KML
+// IMPORT KML FILE
 const btnImportKml = document.getElementById("file-import-kml");
 btnImportKml.addEventListener('change', importKMLPoint, false);
 
-// IMPORT POLY KML
+// IMPORT POLY KML FILE
 const btnImportPoly = document.getElementById("file-import-poly");
 btnImportPoly.addEventListener('change', importKMLPolygon, false);
 
-// IMPORT KML PATH
+// IMPORT KML PATH FILE
 const btnImportPath = document.getElementById("file-import-path");
 btnImportPath.addEventListener('change', importKMLPath, false);
 
-// IMPORT KML POLY MISSION PLANNER
+// IMPORT KML POLY FILE
 const btnImportMP = document.getElementById("file-import-mp");
 btnImportMP.addEventListener('change', importMPPolygon, false);
 
-// BTN OPEN HELP MODAL
+// ===============================================================
+
+// HELP MODAL ===============================================
 const btnHelp = document.getElementById("btn-help");
 btnHelp.addEventListener("click", function () {
-    document.getElementById('bottom-bar').classList.add("hidden");
-    var modal = document.getElementById("help-modal");
-    modal.classList.toggle("hidden");
-    document.getElementById("btn-close-help-modal").addEventListener("click", function () {
-        modal.classList.add("hidden");
-        document.getElementById('bottom-bar').classList.remove("hidden");
+    document.getElementById("saving-bar").classList.add("hidden");
+    document.getElementById("config-bar").classList.add("hidden");
+    document.getElementById("import-file-bar").classList.add("hidden");
+    document.getElementById("help-modal").classList.toggle("hidden");
+
+    document.getElementById("modal-close-button").addEventListener("click", () => {
+        document.getElementById("help-modal").classList.add("hidden");
     });
 });
+// ===============================================================
 
-// BTN OPEN CONFIGURATION MODAL
+// BTN OPEN CONFIGURATION MODAL ===============================================
 const btnConfiguration = document.getElementById("btn-configuration");
 btnConfiguration.addEventListener('click', function () {
-    var modal = document.getElementById("configuration-modal");
-    modal.classList.remove("hidden");
-    document.getElementById("btn-save-configuration-modal").addEventListener("click", function () {
-        modal.classList.add("hidden");
-    });
+    document.getElementById("saving-bar").classList.add("hidden");
+    document.getElementById("import-file-bar").classList.add("hidden");
+    document.getElementById("help-modal").classList.add("hidden");
+    document.getElementById("config-bar").classList.toggle("hidden");
 });
+// ===============================================================
 
-// BTN EXIT
+// BTN EXIT ===============================================
 const btnExit = document.getElementById("btn-exit");
 btnExit.addEventListener("click", function () {
     window.close();
 });
+// ===============================================================
 
+// CONFIGURATIONS ===============================================
 var configDistance = document.getElementById("distance");
 var labelDistance = document.getElementById("label-distance");
 var wpGrid = document.getElementById('wp-grid');
@@ -1038,25 +1053,27 @@ configTempo.onchange = function () {
     labelTempo.innerHTML = "Tempo: " + configTempo.value + "min";
 }
 
+// ===============================================================
+
 // Acessando o botão do marcador
 var btnMarker = document.getElementById('marker');
 
 btnMarker.onclick = function () {
 
-    console.log('ok')
-
     if (marcador.display) {
         marcador.remove();
+        marcador.display = false;
     } else {
         marcador = new mapboxgl.Marker({ color: 'black' })
             .setLngLat(home)
             .addTo(map);
+        marcador.display = true;
     }
 }
 
 // ============================================================================================= PART 4: IMPORT ROUTINES  ============================================================================================= //
 
-// open from flight plans module
+// Get from server storage
 window.onload = async function () {
 
     // get url
@@ -1589,13 +1606,17 @@ function drawTxtPath(txtPath) {
 
 function savePath() {
 
-    if (typeof initialPath === 'undefined') {
-        displayModalAlert("error", "Nenhuma rota foi definida.");
+    if (initialPosition.length === 0) {
+        showAlert("error", 'Nenhuma rota foi definida');
         return;
     }
 
+    document.getElementById("config-bar").classList.add("hidden");
+    document.getElementById("import-file-bar").classList.add("hidden");
+    document.getElementById("help-modal").classList.add("hidden");
+
     // For filenames
-    openConfirmationModal();
+    openSavingBar();
 }
 
 function generatePathSingleFile() {
@@ -1848,9 +1869,9 @@ function generatePathMultiFile(singlePathData) {
     return multiPathData;
 }
 
-function openConfirmationModal() {
+function openSavingBar() {
 
-    removeElementsFromScreen("before");
+    document.getElementById("sidebar").classList.add("hidden");
 
     html2canvas(document.body).then(canvas => {
 
@@ -1861,7 +1882,8 @@ function openConfirmationModal() {
     }).then(({ canvasDataURL }) => {
 
         // Cropper modal
-        document.getElementById('confirmation-modal').classList.remove("hidden");
+        document.getElementById("saving-bar").classList.remove("hidden");
+        document.getElementById("sidebar").classList.remove("hidden");
 
         const image = document.getElementById('cropper-image');
         image.src = '';
@@ -1884,15 +1906,14 @@ function openConfirmationModal() {
 
 // -- HOW CONNECT THESE TWO FUNCTIONS?
 
-function onSaveFlightPlan() {
+function saveFlightPlan() {
 
     // Verify if name was filled
     const flight_plan_name = document.getElementById("name-confirmation").value;
     if (flight_plan_name === "") {
-        displayModalAlert("error", "O nome do plano de voo deve ser preenchido.");
+        showAlert("error", "Informe o nome do plano de voo.");
         return;
     }
-
 
     // Generate route files
     const singlePathData = generatePathSingleFile();
@@ -1902,7 +1923,7 @@ function onSaveFlightPlan() {
     const cropped_image_data_url = cropper.getCroppedCanvas().toDataURL('image/jpeg', 1.0);
     const filenameImg = new Date().getTime() + ".jpeg";
 
-    savingRequest({
+    saveToServer({
         flight_plan_name,
         singlePathData,
         multiPathData,
@@ -1912,12 +1933,22 @@ function onSaveFlightPlan() {
         }
     });
 
+    /*saveLocally({
+        flight_plan_name,
+        singlePathData,
+        multiPathData,
+        image: {
+            cropped_image_data_url,
+            filenameImg
+        }
+    });*/
+
 }
 
 
-function savingRequest({ flight_plan_name, singlePathData, multiPathData, image: { cropped_image_data_url, filenameImg } }) {
-
-    const btnSave = document.getElementById("btn-save-path");
+function saveToServer({ flight_plan_name, singlePathData, multiPathData, image: { cropped_image_data_url, filenameImg } }) {
+    
+    const btnSave = document.getElementById("btn-confirm-saving");
     btnSave.disabled = true;
     btnSave.innerText = "Salvando...";
 
@@ -1957,20 +1988,19 @@ function savingRequest({ flight_plan_name, singlePathData, multiPathData, image:
         responseType: 'json'
     }).then((response) => {
 
-        displayModalAlert("success", "Plano de voo salvo com sucesso.");
-        removeElementsFromScreen("after");
-        cleanMap();
+        showAlert("success", "Salvo com sucesso!");
+        clearMap();
 
         // Destroy the current cropper instance
         cropper.destroy();
 
         setTimeout(() => {
-            document.getElementById('confirmation-modal').classList.add("hidden");
+            document.getElementById('saving-bar').classList.add("hidden");
         }, 2000);
 
     }).catch((error) => {
         console.log(error);
-        displayModalAlert("error", error.response.status === 422 ? "Esse nome já está sendo utilizado." : "Erro ao salvar o plano de voo.");
+        showAlert("error", error.response.status === 422 ? "Esse nome já está sendo utilizado." : "Erro ao salvar o plano de voo.");
         btnSave.disabled = false;
     })
         .finally(() => {
@@ -1979,33 +2009,45 @@ function savingRequest({ flight_plan_name, singlePathData, multiPathData, image:
         });
 }
 
+function saveLocally({ flight_plan_name, singlePathData, multiPathData, image: { cropped_image_data_url, filenameImg } }) {
+
+    const zip = new JSZip();
+
+    // Adicionar arquivo único
+    zip.folder("unique_file").file(singlePathData.filename, singlePathData.blob, { type: "text/plain" });
+
+    // Adicionar múltiplos arquivos
+    const multiFilesFolder = zip.folder("multiple_files");
+    multiPathData.forEach((fileData) => {
+        multiFilesFolder.file(fileData.filename, fileData.blob, { type: "text/plain" });
+        // Supondo que você queira incluir coordenadas como texto no mesmo arquivo, ajuste conforme necessário
+    });
+
+    // Adicionar imagem
+    if (cropped_image_data_url) {
+        // Converter Data URL para Blob
+        fetch(cropped_image_data_url).then(res => res.blob()).then(blob => {
+            zip.folder("image").file(filenameImg, blob, { type: "image/png" }); // Ajuste o tipo conforme necessário
+
+            // Gerar arquivo ZIP e salvar
+            zip.generateAsync({ type: "blob" }).then(function (content) {
+                saveAs(content, "route_files.zip");
+            });
+        });
+    }
+
+}
+
+
+
 
 // ================================================================================================== OTHER ROUTINES: CLEAN MAP, PRINT SCREEN, ETC ================================================================================================== //
 
-// MODAL ALERT
-
-function displayModalAlert(type, message) {
-    const alert = document.getElementById('confirmation-modal-alert');
-    const alert_message = document.getElementById('alert-message');
-
-    // alert message
-    if (type === "success") {
-        alert.classList.add('bg-green-500');
-    } else {
-        alert.classList.add('bg-red-500');
-    }
-    alert_message.innerText = '';
-    alert_message.innerText = message;
-
-    // display alert
-    alert.classList.remove("hidden");
-
-    setTimeout(() => {
-        alert.classList.remove('bg-green-500', 'bg-red-500');
-        alert.classList.add("hidden");
-    }, 2000);
+function clearMap() {
+    cleanLayers();
+    cleanFields();
+    cleanPolygon();
 }
-
 
 // CLEANING ROUTES AND AREAS 
 
@@ -2020,6 +2062,14 @@ function cleanLayers() {
         if (typeof mapLayer !== 'undefined') {
             map.removeLayer(layers[i]).removeSource(layers[i]);
         }
+    }
+}
+
+function cleanLayerById(id) {
+    var mapLayer = map.getLayer(id);
+
+    if (typeof mapLayer !== 'undefined') {
+        map.removeLayer(id).removeSource(id);
     }
 }
 
@@ -2054,37 +2104,28 @@ function cleanPolygon() {
     draw.deleteAll();
 }
 
-// Modal and alert
-var confirmation_modal = document.getElementById("confirmation-modal")
-var modal_alert = document.getElementById("confirmation-modal-alert");
-var modal_alert_message = document.getElementById("alert-message");
-
-function cleanAlerts() {
-    modal_alert.classList.remove("bg-red-400", "bg-green-400")
-}
-
 // Cropper modal close button
-const btnCloseCropperModal = document.getElementById("btn-close-confirmation-modal");
-btnCloseCropperModal.addEventListener("click", function () {
-    removeElementsFromScreen("after");
-    document.getElementById("confirmation-modal").classList.add("hidden");
+const btnCloseSavingBar = document.getElementById("btn-close-saving-bar");
+btnCloseSavingBar.addEventListener("click", function () {
+    document.getElementById("saving-bar").classList.add("hidden");
 });
 
-function removeElementsFromScreen(type) {
-    const bottomBar = document.getElementById("bottom-bar");
-    const menuRight = document.getElementById("right-menu");
-    const menuLeft = document.getElementById("menu-left");
-    if (type === "before") {
-        bottomBar.classList.add("hidden");
-        menuRight.classList.add("hidden");
-        menuLeft.classList.add("hidden");
-        marcador.remove();
-    } else if (type === "after") {
-        bottomBar.classList.remove("hidden");
-        menuRight.classList.remove("hidden");
-        menuLeft.classList.remove("hidden");
-        marcador = new mapboxgl.Marker({ color: 'black' })
-            .setLngLat(home)
-            .addTo(map);
+function showAlert(type, message) {
+
+    if (type === "error") {
+        alert.classList.remove("bg-red-400", "bg-green-400");
+        alert.classList.add("bg-red-500");
+    } else {
+        alert.classList.remove("bg-red-400", "bg-green-400");
+        alert.classList.add("bg-green-500");
     }
+
+    alertMessage.innerHTML = "";
+    alertMessage.innerHTML = message;
+
+    alert.classList.remove("show-alert");
+
+    setTimeout(() => {
+        alert.classList.add("show-alert");
+    }, "500"); 
 }

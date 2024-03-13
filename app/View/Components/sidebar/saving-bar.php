@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\sidebar;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FlightPlanConfiguration extends Component
+class saving-bar extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class FlightPlanConfiguration extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.flight-plan-configuration');
+        return view('components.sidebar.saving-bar');
     }
 }

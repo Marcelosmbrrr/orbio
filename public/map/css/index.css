@@ -53,23 +53,22 @@ h4 {
 /* ANIMATIONS */
 
 @keyframes show-alert {
-    0% {
+    0%, 10% {
         opacity: 0;
+        left: 0px;
     }
 
-    25% {
+    20%, 80% {
         opacity: 1;
+        left: 30px;
     }
 
-    90% {
-        opacity: 1;
-    }
-
-    100% {
+    90%, 100% {
         opacity: 0;
-        display: none;
+        left: 0px;
     }
 }
+
 
 .show-alert {
     animation-name: show-alert;

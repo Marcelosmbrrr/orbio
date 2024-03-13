@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\sidebar;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FlightPlanImageCrop extends Component
+class import-bar extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class FlightPlanImageCrop extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.flight-plan-image-crop');
+        return view('components.sidebar.import-bar');
     }
 }

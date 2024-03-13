@@ -25,11 +25,11 @@ chmod -R 777 storage bootstrap/cache
 npm run build
 
 # Generate application initial data
-php artisan migrate:fresh --seed
+# php artisan migrate:fresh --seed
 
 # Clean storage and create symbolic link to public folder
-rm -rf storage/app/public/*
-php artisan storage:link
+# rm -rf storage/app/public/*
+# php artisan storage:link
 
 # Exit maintenance mode
 php artisan up
