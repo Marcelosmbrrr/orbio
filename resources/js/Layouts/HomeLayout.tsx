@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Head } from '@inertiajs/react';
-import { HeaderDesktop } from '@/Components/shared/header/HeaderDesktop';
-import { HeaderMobile } from '@/Components/shared/header/HeaderMobile';
+import { Header } from '@/Components/shared/header/Header';
+import { Sidebar } from '@/Components/shared/sidebar/Sidebar';
 import { useAuthentication } from '@/Context/AuthenticationContext';
 import { BackdropLoading } from '@/Components/shared/backdrop/BackdropLoading';
 
@@ -18,18 +18,15 @@ export function HomeLayout({ children }: PropsWithChildren) {
 
     if (isAuthenticated) {
         return (
-            <>
+            <div className='h-screen bg-white dark:bg-gray-800'>
                 <Head title="Home" />
-                <div className='flex flex-col h-screen'>
-                    <HeaderDesktop />
-                    <HeaderMobile />
-                    <main className="p-5 pt-12 grow bg-gray-100 dark:bg-gray-900">
-                        {children}
-                    </main>
+                <Header />
+                <Sidebar />
+                <div className="lg:ml-56 dark:bg-gray-800 px-5">
+                    {children}
                 </div>
-            </>
+            </div>
         )
     }
-
 
 }

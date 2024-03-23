@@ -53,8 +53,8 @@
 		</button>
 	</div>
 
-	<div id="alert" class="opacity-0 z-50 fixed flex items-center w-fit p-4 space-x-4 text-gray-500 bg-red-500 divide-x rtl:divide-x-reverse divide-gray-200 rounded-md shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800" style="bottom: 5px;"  role="alert">
-		<div id="alert-message" class="text-base leading-5 text-white bg-red-500 rounded-lg opacity-100 font-regular"><!-- message --></div>
+	<div id="alert" class="opacity-0 z-50 fixed flex items-center w-fit p-4 space-x-4 text-gray-500 divide-x rtl:divide-x-reverse divide-gray-200 rounded-md shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800" style="bottom: 5px;"  role="alert">
+		<div id="alert-message" class="text-base leading-5 text-white rounded-lg opacity-100 font-regular"><!-- message --></div>
 	</div>
 
 	<!-- BOTTOM BAR -->

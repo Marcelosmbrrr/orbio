@@ -2113,10 +2113,10 @@ btnCloseSavingBar.addEventListener("click", function () {
 function showAlert(type, message) {
 
     if (type === "error") {
-        alert.classList.remove("bg-red-400", "bg-green-400");
+        alert.classList.remove("bg-red-500", "bg-green-500");
         alert.classList.add("bg-red-500");
-    } else {
-        alert.classList.remove("bg-red-400", "bg-green-400");
+    } else if(type === "success") {
+        alert.classList.remove("bg-red-500", "bg-green-500");
         alert.classList.add("bg-green-500");
     }
 
