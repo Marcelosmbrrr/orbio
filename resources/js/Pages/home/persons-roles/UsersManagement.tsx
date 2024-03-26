@@ -10,7 +10,6 @@ import { RevertModuleRecordDeletion } from '@/Components/shared/forms-modal/Reve
 import { Paginator } from '@/Components/shared/table/Paginator';
 import { SelectLimit } from '@/Components/shared/table/SelectLimit';
 import { SelectOrderBy } from '@/Components/shared/table/SelectOrderBy';
-import { UsersIcon } from '@/Components/shared/icons/UsersIcon';
 import { useAuthentication } from '@/Context/AuthenticationContext';
 import { FieldOrder } from '@/Components/shared/table/FieldOrder';
 import { SearchBar } from '@/Components/shared/input/SearchBar';
@@ -113,38 +112,46 @@ export default function UsersManagement() {
         }
     }
 
-    function setCardStyle(actual_filter: string) {
-        if (actual_filter === filter) {
-            return "flex items-center max-w-xs text-sm px-5 py-4 text-white bg-green-600 rounded-md active dark:bg-green-600 shadow cursor-pointer";
-        } else {
-            return 'flex items-center max-w-xs text-sm px-5 py-4 text-gray-400 dark:text-gray-600 bg-white rounded-md active dark:bg-gray-800 shadow cursor-pointer';
-        }
-    }
-
     return (
         <HomeLayout>
             <div className='flex flex-col h-full'>
 
-                <div className="py-5 flex justify-between items-end flex-wrap gap-y-5 lg:gap-0 mb-2">
-                    <div className='flex items-end'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 mr-2 text-green-700">
-                            <path fillRule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z" clipRule="evenodd" />
-                            <path d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z" />
-                        </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Usuários</span>
+                <div className='flex items-center mb-5'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white">
+                        <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
+                        <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+                    </svg>
+                    <span className='ml-1 text-xl font-semibold text-gray-700 dark:text-white'>
+                        Usuários
+                    </span>
+                </div>
+
+                <div className='h-20 grid grid-cols-3 gap-x-3'>
+                    <div onClick={() => setFilter('active')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Usuários Ativos</h4>
+                            {filter === "active" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
+                        </div>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.active}</span>
+                        </div>
                     </div>
-                    <div className='flex justify-start flex-wrap gap-1'>
-                        <div onClick={() => setFilter('active')} className={setCardStyle("active")}>
-                            <UsersIcon />
-                            <span className='ml-2'>Ativos: {groupCount.active}</span>
+                    <div onClick={() => setFilter('inative')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Usuários Inativos</h4>
+                            {filter === "inative" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
                         </div>
-                        <div onClick={() => setFilter('inative')} className={setCardStyle("inative")}>
-                            <UsersIcon />
-                            <span className='ml-2'>Inativos: {groupCount.inative}</span>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.inative}</span>
                         </div>
-                        <div onClick={() => setFilter('disabled')} className={setCardStyle("disabled")}>
-                            <UsersIcon />
-                            <span className='ml-2'>Deletados: {groupCount.deleted}</span>
+                    </div>
+                    <div onClick={() => setFilter('disabled')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Usuários Deletados</h4>
+                            {filter === "disabled" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
+                        </div>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.deleted}</span>
                         </div>
                     </div>
                 </div>

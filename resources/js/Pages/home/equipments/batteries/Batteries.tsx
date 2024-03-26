@@ -11,7 +11,6 @@ import { Paginator } from '@/Components/shared/table/Paginator';
 import { ShowImage } from '@/Components/shared/forms-modal/ShowImage';
 import { SelectLimit } from '@/Components/shared/table/SelectLimit';
 import { SelectOrderBy } from '@/Components/shared/table/SelectOrderBy';
-import { BatteryIcon } from '@/Components/shared/icons/BatteryIcon';
 import { useAuthentication } from '@/Context/AuthenticationContext';
 import { FieldOrder } from '@/Components/shared/table/FieldOrder';
 import { SearchBar } from '@/Components/shared/input/SearchBar';
@@ -105,33 +104,36 @@ export default function Batteries() {
         return Boolean(find_record_index + 1); // Boolean(index + 1) or Boolean(-1 + 1)
     }
 
-    function setCardStyle(actual_filter: string) {
-        if (actual_filter === filter) {
-            return "flex items-center max-w-xs text-sm px-5 py-4 text-white bg-green-600 rounded-md active dark:bg-green-600 shadow cursor-pointer";
-        } else {
-            return 'flex items-center max-w-xs text-sm px-5 py-4 text-gray-400 dark:text-gray-600 bg-white rounded-md active dark:bg-gray-800 shadow cursor-pointer';
-        }
-    }
-
     return (
         <HomeLayout>
             <div className='flex flex-col h-full'>
 
-                <div className="py-5 flex justify-between items-end flex-wrap gap-y-5 lg:gap-0 mb-2">
-                    <div className='flex items-end'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 mr-2 text-green-700">
-                            <path fill-rule="evenodd" d="M3.75 6.75a3 3 0 00-3 3v6a3 3 0 003 3h15a3 3 0 003-3v-.037c.856-.174 1.5-.93 1.5-1.838v-2.25c0-.907-.644-1.664-1.5-1.837V9.75a3 3 0 00-3-3h-15zm15 1.5a1.5 1.5 0 011.5 1.5v6a1.5 1.5 0 01-1.5 1.5h-15a1.5 1.5 0 01-1.5-1.5v-6a1.5 1.5 0 011.5-1.5h15zM4.5 9.75a.75.75 0 00-.75.75V15c0 .414.336.75.75.75H18a.75.75 0 00.75-.75v-4.5a.75.75 0 00-.75-.75H4.5z" clipRule="evenodd" />
-                        </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Baterias</span>
-                    </div>
-                    <div className='flex justify-start flex-wrap gap-1'>
-                        <div onClick={() => setFilter('active')} className={setCardStyle("active")}>
-                            <BatteryIcon />
-                            <span className='ml-2'>Ativas: {groupCount.active}</span>
+                <div className='flex items-center mb-5'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white">
+                        <path fill-rule="evenodd" d="M3.75 6.75a3 3 0 00-3 3v6a3 3 0 003 3h15a3 3 0 003-3v-.037c.856-.174 1.5-.93 1.5-1.838v-2.25c0-.907-.644-1.664-1.5-1.837V9.75a3 3 0 00-3-3h-15zm15 1.5a1.5 1.5 0 011.5 1.5v6a1.5 1.5 0 01-1.5 1.5h-15a1.5 1.5 0 01-1.5-1.5v-6a1.5 1.5 0 011.5-1.5h15zM4.5 9.75a.75.75 0 00-.75.75V15c0 .414.336.75.75.75H18a.75.75 0 00.75-.75v-4.5a.75.75 0 00-.75-.75H4.5z" clipRule="evenodd" />
+                    </svg>
+                    <span className='ml-1 text-xl font-semibold text-gray-700 dark:text-white'>
+                        Baterias
+                    </span>
+                </div>
+
+                <div className='h-20 grid grid-cols-2 gap-x-3'>
+                    <div onClick={() => setFilter('active')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Baterias Disponíveis</h4>
+                            {filter === "active" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
                         </div>
-                        <div onClick={() => setFilter('disabled')} className={setCardStyle("disabled")}>
-                            <BatteryIcon />
-                            <span className='ml-2'>Deletadas: {groupCount.deleted}</span>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.active}</span>
+                        </div>
+                    </div>
+                    <div onClick={() => setFilter('disabled')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Baterias Deletadas</h4>
+                            {filter === "disabled" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
+                        </div>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.deleted}</span>
                         </div>
                     </div>
                 </div>

@@ -139,33 +139,36 @@ export default function FlightPlans() {
         }
     }
 
-    function setCardStyle(actual_filter: string) {
-        if (actual_filter === filter) {
-            return "flex items-center max-w-xs text-sm px-5 py-4 text-white bg-green-600 rounded-md active dark:bg-green-600 shadow cursor-pointer";
-        } else {
-            return 'flex items-center max-w-xs text-sm px-5 py-4 text-gray-400 dark:text-gray-600 bg-white rounded-md active dark:bg-gray-800 shadow cursor-pointer';
-        }
-    }
-
     return (
         <HomeLayout>
             <div className='flex flex-col h-full'>
 
-                <div className="py-5 flex justify-between items-end flex-wrap gap-y-5 lg:gap-0 mb-2">
-                    <div className='flex items-end'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 mr-2 text-green-700">
-                            <path fillRule="evenodd" d="M8.161 2.58a1.875 1.875 0 011.678 0l4.993 2.498c.106.052.23.052.336 0l3.869-1.935A1.875 1.875 0 0121.75 4.82v12.485c0 .71-.401 1.36-1.037 1.677l-4.875 2.437a1.875 1.875 0 01-1.676 0l-4.994-2.497a.375.375 0 00-.336 0l-3.868 1.935A1.875 1.875 0 012.25 19.18V6.695c0-.71.401-1.36 1.036-1.677l4.875-2.437zM9 6a.75.75 0 01.75.75V15a.75.75 0 01-1.5 0V6.75A.75.75 0 019 6zm6.75 3a.75.75 0 00-1.5 0v8.25a.75.75 0 001.5 0V9z" clipRule="evenodd" />
-                        </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Planos de Voo</span>
-                    </div>
-                    <div className='flex justify-start flex-wrap gap-1'>
-                        <div onClick={() => setFilter('active')} className={setCardStyle("active")}>
-                            <MapIcon />
-                            <span className='ml-2'>Ativos: {groupCount.active}</span>
+                <div className='flex items-center mb-5'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white">
+                        <path fill-rule="evenodd" d="M8.161 2.58a1.875 1.875 0 0 1 1.678 0l4.993 2.498c.106.052.23.052.336 0l3.869-1.935A1.875 1.875 0 0 1 21.75 4.82v12.485c0 .71-.401 1.36-1.037 1.677l-4.875 2.437a1.875 1.875 0 0 1-1.676 0l-4.994-2.497a.375.375 0 0 0-.336 0l-3.868 1.935A1.875 1.875 0 0 1 2.25 19.18V6.695c0-.71.401-1.36 1.036-1.677l4.875-2.437ZM9 6a.75.75 0 0 1 .75.75V15a.75.75 0 0 1-1.5 0V6.75A.75.75 0 0 1 9 6Zm6.75 3a.75.75 0 0 0-1.5 0v8.25a.75.75 0 0 0 1.5 0V9Z" clip-rule="evenodd" />
+                    </svg>
+                    <span className='ml-1 text-xl font-semibold text-gray-700 dark:text-white'>
+                        Planos de Voo
+                    </span>
+                </div>
+
+                <div className='h-20 grid grid-cols-2 gap-x-3'>
+                    <div onClick={() => setFilter('active')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Planos Disponíveis</h4>
+                            {filter === "active" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
                         </div>
-                        <div onClick={() => setFilter('disabled')} className={setCardStyle("disabled")}>
-                            <MapIcon />
-                            <span className='ml-2'>Deletados: {groupCount.deleted}</span>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.active}</span>
+                        </div>
+                    </div>
+                    <div onClick={() => setFilter('disabled')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Planos Deletados</h4>
+                            {filter === "disabled" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
+                        </div>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.deleted}</span>
                         </div>
                     </div>
                 </div>

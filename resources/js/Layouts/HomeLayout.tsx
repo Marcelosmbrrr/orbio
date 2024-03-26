@@ -18,7 +18,7 @@ export function HomeLayout({ children }: PropsWithChildren) {
 
     if (isAuthenticated) {
         return (
-            <div className='h-screen bg-white dark:bg-gray-900'>
+            <div className='h-screen bg-gray-50 dark:bg-gray-900'>
                 <Head title="Home" />
                 <Header />
                 <Sidebar />

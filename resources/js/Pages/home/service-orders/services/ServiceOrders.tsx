@@ -9,7 +9,6 @@ import { ExportTableData } from '@/Components/shared/table/ExportTableData';
 import { SelectLimit } from '@/Components/shared/table/SelectLimit';
 import { SelectOrderBy } from '@/Components/shared/table/SelectOrderBy';
 import { Paginator } from '@/Components/shared/table/Paginator';
-import { ServiceOrderIcon } from '@/Components/shared/icons/ServiceOrderIcon';
 import { useAuthentication } from '@/Context/AuthenticationContext';
 import { FieldOrder } from '@/Components/shared/table/FieldOrder';
 import { SearchBar } from '@/Components/shared/input/SearchBar';
@@ -77,14 +76,6 @@ export default function ServiceOrders() {
         }
     }
 
-    function setCardStyle(actual_filter: string) {
-        if (actual_filter === filter) {
-            return "flex items-center max-w-xs text-sm px-5 py-4 text-white bg-green-600 rounded-md active dark:bg-green-600 shadow cursor-pointer";
-        } else {
-            return 'flex items-center max-w-xs text-sm px-5 py-4 text-gray-400 dark:text-gray-600 bg-white rounded-md active dark:bg-gray-800 shadow cursor-pointer';
-        }
-    }
-
     function onOpenRecord(record_id: string) {
         if (record_id === openRecord) {
             setOpenRecord("0");
@@ -125,30 +116,51 @@ export default function ServiceOrders() {
         <HomeLayout>
             <div className='flex flex-col h-full'>
 
-                <div className="py-5 flex justify-between items-end flex-wrap gap-y-5 lg:gap-0 mb-2">
-                    <div className='flex items-end'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 mr-2 text-green-700">
-                            <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
-                            <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z" clipRule="evenodd" />
-                        </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Ordens de Serviço</span>
+                <div className='flex items-center mb-5'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="flex-shrink-0 w-6 h-6 transition duration-75 text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white">
+                        <path fillRule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z" clipRule="evenodd" />
+                        <path fillRule="evenodd" d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 013 20.625V9.375zM6 12a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V12zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 15a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V15zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75zM6 18a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75H6.75a.75.75 0 01-.75-.75V18zm2.25 0a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H9a.75.75 0 01-.75-.75z" clipRule="evenodd" />
+                    </svg>
+                    <span className='ml-1 text-xl font-semibold text-gray-700 dark:text-white'>
+                        Ordens de Serviço
+                    </span>
+                </div>
+
+                <div className='h-20 grid grid-cols-4 gap-3'>
+                    <div onClick={() => setFilter('created')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Ordens Criadas</h4>
+                            {filter === "created" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
+                        </div>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.created}</span>
+                        </div>
                     </div>
-                    <div className='flex justify-start flex-wrap gap-1'>
-                        <div onClick={() => setFilter('created')} className={setCardStyle("created")}>
-                            <ServiceOrderIcon />
-                            <span className='ml-2'>Abertas: {groupCount.created}</span>
+                    <div onClick={() => setFilter('approved')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Ordens Aprovadas</h4>
+                            {filter === "approved" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
                         </div>
-                        <div onClick={() => setFilter('approved')} className={setCardStyle("approved")}>
-                            <ServiceOrderIcon />
-                            <span className='ml-2'>Em atendimento: {groupCount.approved}</span>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.approved}</span>
                         </div>
-                        <div onClick={() => setFilter('canceled')} className={setCardStyle("canceled")}>
-                            <ServiceOrderIcon />
-                            <span className='ml-2'>Canceladas: {groupCount.canceled}</span>
+                    </div>
+                    <div onClick={() => setFilter('canceled')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Ordens Canceladas</h4>
+                            {filter === "canceled" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
                         </div>
-                        <div onClick={() => setFilter('finished')} className={setCardStyle("finished")}>
-                            <ServiceOrderIcon />
-                            <span className='ml-2'>Finalizadas: {groupCount.finished}</span>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.canceled}</span>
+                        </div>
+                    </div>
+                    <div onClick={() => setFilter('finished')} className="flex items-center px-3 justify-between rounded-xl bg-white dark:bg-gray-800 shadow cursor-pointer">
+                        <div>
+                            <h4 className="text-title-md text-lg font-bold text-black dark:text-white">Ordens Deletadas</h4>
+                            {filter === "finished" && <div className="mt-1 w-fit bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Grupo Selecionado</div>}
+                        </div>
+                        <div>
+                            <span className="text-xl text-black dark:text-white font-medium">{groupCount.finished}</span>
                         </div>
                     </div>
                 </div>
