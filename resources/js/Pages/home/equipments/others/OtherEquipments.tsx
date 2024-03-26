@@ -125,7 +125,7 @@ export default function OtherEquipments() {
                             <path d="M10.076 8.64l-2.201-2.2V4.874a.75.75 0 00-.364-.643l-3.75-2.25a.75.75 0 00-.916.113l-.75.75a.75.75 0 00-.113.916l2.25 3.75a.75.75 0 00.643.364h1.564l2.062 2.062 1.575-1.297z" />
                             <path fillRule="evenodd" d="M12.556 17.329l4.183 4.182a3.375 3.375 0 004.773-4.773l-3.306-3.305a6.803 6.803 0 01-1.53.043c-.394-.034-.682-.006-.867.042a.589.589 0 00-.167.063l-3.086 3.748zm3.414-1.36a.75.75 0 011.06 0l1.875 1.876a.75.75 0 11-1.06 1.06L15.97 17.03a.75.75 0 010-1.06z" clipRule="evenodd" />
                         </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Gerenciamento de Equipamentos</span>
+                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Equipamentos</span>
                     </div>
                     <div className='flex justify-start flex-wrap gap-1'>
                         <div onClick={() => setFilter('active')} className={setCardStyle("active")}>
@@ -139,7 +139,7 @@ export default function OtherEquipments() {
                     </div>
                 </div>
 
-                <div className='grow p-5 rounded bg-white dark:bg-gray-800 shadow'>
+                <div className='grow py-5 rounded'>
 
                     <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-between">
@@ -166,7 +166,7 @@ export default function OtherEquipments() {
                         </div>
                     </div>
 
-                    <div className="mt-2 overflow-x-auto shadow-md sm:rounded-lg">
+                    <div className="mt-2 overflow-x-auto sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-800 dark:text-white uppercase bg-gray-100 dark:bg-gray-700">
                                 <tr>

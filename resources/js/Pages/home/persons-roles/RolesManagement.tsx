@@ -123,7 +123,7 @@ export default function RolesManagement() {
                         <svg className="w-7 h-7 mr-2 text-green-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                             <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z" />
                         </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Gerenciamento de Cargos</span>
+                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Cargos</span>
                     </div>
                     <div className='flex justify-start flex-wrap gap-1'>
                         <div onClick={() => setFilter('active')} className={setCardStyle("active")}>
@@ -137,7 +137,7 @@ export default function RolesManagement() {
                     </div>
                 </div>
 
-                <div className='grow p-5 rounded bg-white dark:bg-gray-800 shadow'>
+                <div className='grow py-5 rounded'>
 
                     <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-between">

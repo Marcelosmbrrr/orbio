@@ -14,7 +14,7 @@ export function Header() {
     const { user } = useAuthentication();
 
     return (
-        <header className="flex justify-between lg:justify-end items-center w-full bg-white p-4 dark:bg-gray-800">
+        <header className="flex justify-between lg:justify-end items-center w-full p-4">
 
             <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                 <span className="sr-only">Open sidebar</span>

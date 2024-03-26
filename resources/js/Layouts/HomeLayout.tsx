@@ -18,11 +18,11 @@ export function HomeLayout({ children }: PropsWithChildren) {
 
     if (isAuthenticated) {
         return (
-            <div className='h-screen bg-white dark:bg-gray-800'>
+            <div className='h-screen bg-white dark:bg-gray-900'>
                 <Head title="Home" />
                 <Header />
                 <Sidebar />
-                <div className="lg:ml-56 dark:bg-gray-800 px-5">
+                <div className="lg:ml-56 px-8">
                     {children}
                 </div>
             </div>

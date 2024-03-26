@@ -123,7 +123,7 @@ export default function Drones() {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 mr-2 text-green-700">
                             <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
                         </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Gerenciamento de Drones</span>
+                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Drones</span>
                     </div>
                     <div className='flex justify-start flex-wrap gap-1'>
                         <div onClick={() => setFilter('active')} className={setCardStyle("active")}>
@@ -137,7 +137,7 @@ export default function Drones() {
                     </div>
                 </div>
 
-                <div className='grow p-5 rounded bg-white dark:bg-gray-800 shadow'>
+                <div className='grow py-5 rounded'>
 
                     <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-between">
@@ -164,7 +164,7 @@ export default function Drones() {
                         </div>
                     </div>
 
-                    <div className="mt-2 overflow-x-auto shadow-md sm:rounded-lg">
+                    <div className="mt-2 overflow-x-auto sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-800 dark:text-white uppercase bg-gray-100 dark:bg-gray-700">
                                 <tr>

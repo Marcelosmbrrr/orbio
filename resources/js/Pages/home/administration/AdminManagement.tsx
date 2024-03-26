@@ -141,7 +141,7 @@ export default function AdminManagement() {
                     </div>
                 </div>
 
-                <div className='grow py-5 rounded bg-white dark:bg-gray-800'>
+                <div className='grow py-5 rounded'>
 
                     <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-between">

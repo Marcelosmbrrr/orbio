@@ -156,7 +156,7 @@ export default function FlightPlans() {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 mr-2 text-green-700">
                             <path fillRule="evenodd" d="M8.161 2.58a1.875 1.875 0 011.678 0l4.993 2.498c.106.052.23.052.336 0l3.869-1.935A1.875 1.875 0 0121.75 4.82v12.485c0 .71-.401 1.36-1.037 1.677l-4.875 2.437a1.875 1.875 0 01-1.676 0l-4.994-2.497a.375.375 0 00-.336 0l-3.868 1.935A1.875 1.875 0 012.25 19.18V6.695c0-.71.401-1.36 1.036-1.677l4.875-2.437zM9 6a.75.75 0 01.75.75V15a.75.75 0 01-1.5 0V6.75A.75.75 0 019 6zm6.75 3a.75.75 0 00-1.5 0v8.25a.75.75 0 001.5 0V9z" clipRule="evenodd" />
                         </svg>
-                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Gerenciamento de Planos de Voo</span>
+                        <span className='text-xl font-semibold text-gray-700 dark:text-white'>Planos de Voo</span>
                     </div>
                     <div className='flex justify-start flex-wrap gap-1'>
                         <div onClick={() => setFilter('active')} className={setCardStyle("active")}>
@@ -170,7 +170,7 @@ export default function FlightPlans() {
                     </div>
                 </div>
 
-                <div className='grow p-5 rounded bg-white dark:bg-gray-800 shadow'>
+                <div className='grow py-5 rounded'>
 
                     <div className="w-full flex flex-col gap-2">
                         <div className="w-full flex justify-between">
@@ -197,7 +197,7 @@ export default function FlightPlans() {
                         </div>
                     </div>
 
-                    <div className="mt-2 overflow-x-auto shadow-md sm:rounded-lg">
+                    <div className="mt-2 overflow-x-auto sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-800 dark:text-white uppercase bg-gray-100 dark:bg-gray-700">
                                 <tr>
