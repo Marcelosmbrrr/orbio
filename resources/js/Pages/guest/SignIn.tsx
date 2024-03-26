@@ -41,9 +41,8 @@ export default function SignIn() {
 
         } catch (e) {
             requestError(e);
-        } finally {
             setPending(false);
-        }
+        } 
     }
 
     function requestError(e: any) {
